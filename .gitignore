@@ -1,0 +1,9 @@
+data/*
+!data/.gitkeep
+__pycache__/
+*.py[cod]
+.pytest_cache/
+target/
+.DS_Store
+.idea/
+.vscode/

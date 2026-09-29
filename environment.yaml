@@ -1,0 +1,5 @@
+name: backend
+channels:
+  - conda-forge
+dependencies:
+  - openjdk=21
