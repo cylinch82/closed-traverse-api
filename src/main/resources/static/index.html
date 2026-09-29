@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="輸入閉合導線觀測資料，計算座標增量平差並保存結果。">
+  <title>閉合導線平差 | Closed Traverse</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-content">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">⌖</span><span>Closed Traverse</span></div>
+      <span class="header-tag">Java 21 · 測量資料平差</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">測量紀錄工作台</p>
+      <h1 id="page-title">閉合導線，從觀測到座標</h1>
+      <p>輸入每段的水平距離與方位角，後端會計算座標增量改正量，並保存原始觀測與成果。</p>
+    </section>
+
+    <div class="workspace">
+      <section class="panel input-panel" aria-labelledby="input-title">
+        <div class="panel-heading">
+          <div>
+            <p class="step">01 / INPUT</p>
+            <h2 id="input-title">輸入觀測資料</h2>
+          </div>
+          <button class="text-button" id="example-button" type="button">載入範例</button>
+        </div>
+
+        <form id="traverse-form">
+          <div class="field-row">
+            <label for="time-zone">時區</label>
+            <input id="time-zone" name="timeZone" type="text" maxlength="100" required autocomplete="off" placeholder="Asia/Taipei">
+            <p class="field-help">時區僅作為紀錄資訊，不代表量測時間。</p>
+          </div>
+
+          <div class="legs-heading">
+            <div>
+              <h3>觀測段</h3>
+              <p>依行進順序填寫；最後一段須返回第一站。</p>
+            </div>
+            <button class="secondary-button" id="add-leg-button" type="button">＋ 新增一段</button>
+          </div>
+
+          <div class="leg-columns" aria-hidden="true">
+            <span>段</span><span>起站</span><span>迄站</span><span>水平距離 m</span><span>方位角 °</span><span></span>
+          </div>
+          <div id="leg-rows" class="leg-rows"></div>
+
+          <div id="form-message" class="form-message" role="status" aria-live="polite" hidden></div>
+          <div class="form-actions">
+            <button id="submit-button" class="primary-button" type="submit">計算並儲存 <span aria-hidden="true">→</span></button>
+            <button id="clear-button" class="text-button" type="button">清空表單</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel result-panel" aria-labelledby="result-title">
+        <div class="panel-heading">
+          <div>
+            <p class="step">02 / RESULT</p>
+            <h2 id="result-title">平差成果</h2>
+          </div>
+          <span class="subtle-tag">局部相對座標</span>
+        </div>
+        <div id="result-empty" class="empty-state">
+          <span class="empty-symbol" aria-hidden="true">◎</span>
+          <h3>等待觀測資料</h3>
+          <p>送出後，這裡會顯示閉合差、各站座標與每段改正量。</p>
+        </div>
+        <div id="result-content" hidden></div>
+      </section>
+    </div>
+
+    <section class="panel history-panel" aria-labelledby="history-title">
+      <div class="panel-heading">
+        <div>
+          <p class="step">03 / HISTORY</p>
+          <h2 id="history-title">已保存的測量</h2>
+        </div>
+        <button class="text-button" id="refresh-button" type="button">重新整理</button>
+      </div>
+      <div id="history-content" aria-live="polite"><p class="muted">載入紀錄中…</p></div>
+    </section>
+
+    <p class="scope-note">本工具只做座標增量平差，不判定測量是否合格。起點固定為 (0, 0)；X 向東、Y 向北，方位角由北起順時針計算。</p>
+  </main>
+</body>
+</html>

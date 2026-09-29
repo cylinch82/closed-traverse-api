@@ -13,6 +13,10 @@ conda run -n backend ./mvnw spring-boot:run
 
 The server listens on `http://localhost:8080`. H2 saves data in `data/closed-traverse.mv.db`; the generated database file is ignored by Git. To build a standalone jar, run `conda run -n backend ./mvnw package` and then `conda run -n backend java -jar target/closed-traverse-api-0.1.0.jar`.
 
+## Web demo
+
+Keep the `spring-boot:run` terminal open, then visit [http://localhost:8080/](http://localhost:8080/) in a browser. The page starts with an **unsaved** example loop. Edit its legs or clear the form, submit to calculate and save, and use the history section to reopen saved traverses. The web page and API are served by the same Spring Boot process; no separate frontend server is needed. If the browser says localhost refused the connection, start the server and wait for the `Tomcat started on port 8080` message. Stop it with Ctrl+C after the demo.
+
 ## API
 
 Submit a complete loop in travel order:
