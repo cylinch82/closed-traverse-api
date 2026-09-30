@@ -27,6 +27,10 @@ for path in \
     logs/application.log \
     .idea/workspace.xml \
     project.iml \
+    AGENTS.md \
+    README.md \
+    docs/guide.markdown \
+    docs/notes.mdown \
     src/.DS_Store; do
     assert_ignored "$path"
 done
@@ -34,9 +38,14 @@ done
 for path in \
     data/.gitkeep \
     .env.example \
-    README.md \
     src/main/resources/application.properties; do
     assert_trackable "$path"
 done
+
+tracked_markdown=$(git ls-files -- '*.md' '*.markdown' '*.mdown')
+if [[ -n "$tracked_markdown" ]]; then
+    printf 'Markdown files must not be tracked:\n%s\n' "$tracked_markdown" >&2
+    exit 1
+fi
 
 printf 'Git ignore rules passed.\n'

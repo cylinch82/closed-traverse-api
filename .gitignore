@@ -11,6 +11,11 @@ logs/
 .env.*
 !.env.example
 
+# Markdown documents
+*.md
+*.markdown
+*.mdown
+
 # Build and tooling output
 target/
 .idea/
