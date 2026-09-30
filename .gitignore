@@ -15,6 +15,7 @@ logs/
 *.md
 *.markdown
 *.mdown
+!/README.md
 
 # Build and tooling output
 target/

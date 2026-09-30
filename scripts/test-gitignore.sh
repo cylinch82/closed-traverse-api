@@ -28,7 +28,6 @@ for path in \
     .idea/workspace.xml \
     project.iml \
     AGENTS.md \
-    README.md \
     docs/guide.markdown \
     docs/notes.mdown \
     src/.DS_Store; do
@@ -38,13 +37,19 @@ done
 for path in \
     data/.gitkeep \
     .env.example \
+    README.md \
     src/main/resources/application.properties; do
     assert_trackable "$path"
 done
 
-tracked_markdown=$(git ls-files -- '*.md' '*.markdown' '*.mdown')
+if ! git ls-files --error-unmatch -- README.md >/dev/null 2>&1; then
+    printf 'README.md must be tracked.\n' >&2
+    exit 1
+fi
+
+tracked_markdown=$(git ls-files -- '*.md' '*.markdown' '*.mdown' | sed '/^README\.md$/d')
 if [[ -n "$tracked_markdown" ]]; then
-    printf 'Markdown files must not be tracked:\n%s\n' "$tracked_markdown" >&2
+    printf 'Only README.md may be tracked as Markdown:\n%s\n' "$tracked_markdown" >&2
     exit 1
 fi
 
