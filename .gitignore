@@ -1,9 +1,22 @@
-data/*
-!data/.gitkeep
+# Runtime data and logs
+/data/*
+!/data/.gitkeep
+*.mv.db
+*.trace.db
+*.log
+logs/
+
+# Local configuration
+.env
+.env.*
+!.env.example
+
+# Build and tooling output
+target/
+.idea/
+.vscode/
+*.iml
 __pycache__/
 *.py[cod]
 .pytest_cache/
-target/
 .DS_Store
-.idea/
-.vscode/

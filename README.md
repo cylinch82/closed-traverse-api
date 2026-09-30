@@ -8,6 +8,7 @@ Use the project's `backend` conda environment, which provides Java 21. If the en
 
 ```sh
 conda run -n backend ./mvnw test
+bash scripts/test-gitignore.sh
 conda run -n backend ./mvnw spring-boot:run
 ```
 
